@@ -1,9 +1,9 @@
 <!doctype html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
-<title>Live — Baccarat (Demo)</title>
+<title>Ao Vivo — Baccarat</title>
 <style>
   :root{
     --ink:#eaf2ff; --mut:#9fb0d9; --g1:#71e1ff; --g2:#25c3ff; --gold:#ffd86a;
@@ -74,75 +74,75 @@
 </head>
 <body>
 
-<a class="backBtn" id="backBtn" href="index.html">Back</a>
+<a class="backBtn" id="backBtn" href="index.html">Voltar</a>
 
 <div class="wrap">
   <div class="card">
     <div class="top">
-      <div class="note" style="font-size:12px;opacity:.9"><b>Demo</b> • Place 3 Bets to preview the flow</div>
-      <div class="status" id="status">Ready</div>
+      <div class="note" style="font-size:12px;opacity:.9">Coloque até <b>3 apostas</b></div>
+      <div class="status" id="status">Pronto</div>
     </div>
 
     <div class="felt" id="felt" aria-live="polite">
       <canvas id="fx"></canvas>
 
-      <div class="hud"><div class="pill" id="progressTop">Bets left: 3 • Wins: 0</div></div>
+      <div class="hud"><div class="pill" id="progressTop">Apostas restantes: 3 • Vitórias: 0</div></div>
 
-      <div class="tot p" id="pTot">Player: —</div>
-      <div class="tot b" id="bTot">Banker: —</div>
+      <div class="tot p" id="pTot">Jogador: —</div>
+      <div class="tot b" id="bTot">Banqueiro: —</div>
 
       <div class="hand player" id="pHand"></div>
       <div class="hand banker" id="bHand"></div>
 
-      <div class="areas" id="areas" role="group" aria-label="Betting areas">
-        <button type="button" class="area player" id="areaPlayer" data-side="player" aria-label="Bet Player">
-          <div class="betSpot"><div class="spotText"><span class="lab">PLAYER</span><span class="odds">1 : 1</span></div></div>
+      <div class="areas" id="areas" role="group" aria-label="Áreas de aposta">
+        <button type="button" class="area player" id="areaPlayer" data-side="player" aria-label="Apostar no Jogador">
+          <div class="betSpot"><div class="spotText"><span class="lab">JOGADOR</span><span class="odds">1 : 1</span></div></div>
         </button>
-        <button type="button" class="area tie" id="areaTie" data-side="tie" aria-label="Bet Tie">
-          <div class="betSpot"><div class="spotText"><span class="lab">TIE</span><span class="odds">8 : 1</span></div></div>
+        <button type="button" class="area tie" id="areaTie" data-side="tie" aria-label="Apostar no Empate">
+          <div class="betSpot"><div class="spotText"><span class="lab">EMPATE</span><span class="odds">8 : 1</span></div></div>
         </button>
-        <button type="button" class="area banker" id="areaBanker" data-side="banker" aria-label="Bet Banker">
-          <div class="betSpot"><div class="spotText"><span class="lab">BANKER</span><span class="odds">0.95 : 1</span></div></div>
+        <button type="button" class="area banker" id="areaBanker" data-side="banker" aria-label="Apostar no Banqueiro">
+          <div class="betSpot"><div class="spotText"><span class="lab">BANQUEIRO</span><span class="odds">0.95 : 1</span></div></div>
         </button>
       </div>
 
-      <div class="controls"><button class="btn" id="dealBtn" type="button" disabled>Deal</button></div>
-      <div class="winner" id="winnerOverlay"><div class="winBadge" id="winBadge">Player Win</div></div>
+      <div class="controls"><button class="btn" id="dealBtn" type="button" disabled>Distribuir</button></div>
+      <div class="winner" id="winnerOverlay"><div class="winBadge" id="winBadge">Vitória do Jogador</div></div>
     </div>
 
     <div class="outerBanner" style="margin:10px 4px 0; display:flex; justify-content:center;">
-      <div class="pill" id="outerBanner">Tap a circle: Player / Tie / Banker</div>
+      <div class="pill" id="outerBanner">Toque em um círculo: Jogador / Empate / Banqueiro</div>
     </div>
 
   </div>
 </div>
 
-<!-- VIP Gate (non-VIP demo end screen) -->
+<!-- VIP Gate (somente aviso; marcação localStorage sem bloqueio rígido) -->
 <div class="overlay" id="vipGate" role="dialog" aria-modal="true">
   <div class="modal">
-    <div style="font-weight:900; font-size:clamp(18px,4.5vw,24px); margin-bottom:6px">VIP 01+ Required</div>
-    <div style="color:#a9b7d8; margin-bottom:10px">You’ve reached the end of the demo. Become VIP 01 or above to unlock voucher rewards.</div>
+    <div style="font-weight:900; font-size:clamp(18px,4.5vw,24px); margin-bottom:6px">VIP 01 para desbloquear código de voucher!</div>
+    <div style="color:#a9b7d8; margin-bottom:10px">Você concluiu a prévia. Torne-se VIP 01 ou acima para receber códigos de voucher.</div>
     <div class="row">
-      <button class="close" id="vipLearn" type="button">How to become VIP</button>
-      <button class="copy"  id="vipBack"  type="button">Back to Menu</button>
+      <a class="close" id="vipLearn" href="https://tr.ee/ricobetvipbr" target="_blank" rel="noopener">Como desbloquear</a>
+      <button class="copy"  id="vipBack"  type="button">Fechar</button>
     </div>
   </div>
 </div>
 
 <audio id="bgm" src="theme.mp3" preload="auto" loop playsinline></audio>
-<button id="bgmToggle" class="bgmBtn" aria-pressed="false" hidden>🔊 Sound</button>
+<button id="bgmToggle" class="bgmBtn" aria-pressed="false" hidden>🔊 Som</button>
 
 <script>
-/* Demo repo: always non-VIP */
-const IS_DEMO = true;
+/* Marcação de conclusão local (sem bloqueio rígido): 'rb_vip_played' */
+const LS_KEY = 'rb_vip_played';
+
 function g(id){return document.getElementById(id)}
 function delay(ms){return new Promise(r=>setTimeout(r,ms))}
 
 const vipGate = g('vipGate'); const vipLearn = g('vipLearn'); const vipBack = g('vipBack');
-vipLearn.onclick = ()=>{ location.href = 'index.html#vip-info'; };
-vipBack.onclick  = ()=>{ location.href = 'index.html'; };
+vipBack.onclick  = ()=>{ vipGate.classList.remove('show'); };
 
-/* Sounds (WebAudio + bgm) */
+/* Áudio */
 let AC=null, audioReady=false; const bgm=g('bgm'), bgmBtn=g('bgmToggle'); const baseVol=0.22;
 function ensureAC(){ if(!AC){ AC=new (window.AudioContext||window.webkitAudioContext)(); } }
 function unlockAudio(){ ensureAC(); if(AC && AC.state==='suspended'){ AC.resume(); } try{ bgm.muted=false; bgm.volume=baseVol; bgm.play(); }catch(e){} audioReady=true; }
@@ -150,12 +150,12 @@ function unlockAudio(){ ensureAC(); if(AC && AC.state==='suspended'){ AC.resume(
 window.addEventListener('load', async ()=>{ try{ bgm.volume=baseVol; bgm.muted=true; await bgm.play(); }catch(e){} bgmBtn.hidden=false; }, {once:true});
 bgmBtn.addEventListener('click', async ()=>{ try{ if(bgm.paused){ bgm.muted=false; bgm.volume=baseVol; await bgm.play(); bgmBtn.setAttribute('aria-pressed','true'); } else { bgm.pause(); bgmBtn.setAttribute('aria-pressed','false'); } }catch(e){} });
 
-/* Tiny sfx */
-function tone(type,freq,dur,gain){ if(!audioReady||!AC) return; const t=AC.currentTime, o=AC.createOscillator(), g=AC.createGain(); o.type=type; o.frequency.setValueAtTime(freq,t); g.gain.value=gain; g.gain.exponentialRampToValueAtTime(0.0001, t+dur); o.connect(g).connect(AC.destination); o.start(t); o.stop(t+dur); }
+/* Efeitos de som */
+function tone(type,freq,dur,gain){ if(!audioReady||!AC) return; const t=AC.currentTime, o=AC.createOscillator(), k=AC.createGain(); o.type=type; o.frequency.setValueAtTime(freq,t); k.gain.value=gain; k.gain.exponentialRampToValueAtTime(0.0001, t+dur); o.connect(k).connect(AC.destination); o.start(t); o.stop(t+dur); }
 function blip(f=780,d=0.07,g=0.07){ tone('square',f,d,g); }
 function thud(d=0.12,g=0.18){ if(!audioReady||!AC)return; const t=AC.currentTime, o=AC.createOscillator(), k=AC.createGain(), f=AC.createBiquadFilter(); f.type='lowpass'; f.frequency.value=320; o.type='sine'; o.frequency.setValueAtTime(130,t); o.frequency.exponentialRampToValueAtTime(62,t+d); k.gain.value=g; k.gain.exponentialRampToValueAtTime(0.0001,t+d); o.connect(f).connect(k).connect(AC.destination); o.start(t); o.stop(t+d); }
 
-/* FX canvas */
+/* FX confete */
 const fx=g('fx'), ctx=fx.getContext('2d');
 function resizeFX(){ fx.width=fx.parentElement.clientWidth; fx.height=fx.parentElement.clientHeight }
 addEventListener('resize',resizeFX); addEventListener('orientationchange',()=>setTimeout(resizeFX,200)); resizeFX();
@@ -164,14 +164,14 @@ function confetti(){ const p=[]; for(let i=0;i<140;i++) p.push({x:fx.width/2,y:1
 /* DOM refs */
 const status=g('status'), banner=g('outerBanner');
 const pHand=g('pHand'), bHand=g('bHand'), pTot=g('pTot'), bTot=g('bTot');
-const areas=g('areas'), btnP=g('areaPlayer'), btnT=g('areaTie'), btnB=g('areaBanker');
+const btnP=g('areaPlayer'), btnT=g('areaTie'), btnB=g('areaBanker');
 const dealBtn=g('dealBtn'), progressTop=g('progressTop');
-const winnerOverlay=g('winnerOverlay'), winBadge=g('winBadge'); const felt = g('felt');
+const winnerOverlay=g('winnerOverlay'), winBadge=g('winBadge');
 
-/* State */
+/* Estado */
 let roundsPlayed=0, winsCount=0, selection=null, inRound=false;
 
-/* Cards */
+/* Baralho Baccarat */
 const RANKS=['A','2','3','4','5','6','7','8','9','10','J','Q','K'];
 const SUITS=['♠','♥','♦','♣'];
 function bacVal(r){ if(r==='A')return 1; if(r==='10'||r==='J'||r==='Q'||r==='K') return 0; return +r }
@@ -181,33 +181,34 @@ function makeCardEl(card, show=false){ const el=document.createElement('div'); e
 function flip(card){ if(card.shown) return; card.shown=true; if(card.el) card.el.classList.add('reveal'); blip(780,0.07,0.07); }
 function heartbeat(node){ node.classList.remove('heartbeat'); void node?.offsetWidth; node?.classList?.add('heartbeat'); thud(0.1,0.14); }
 
-/* Controls */
+/* Controles */
 function lock(disabled){ [btnP,btnT,btnB].forEach(b=>{ b.disabled=!!disabled; if(disabled) b.classList.remove('sel') }); dealBtn.disabled=!!disabled; if(disabled) selection=null; }
-function selectSide(side){ if(inRound) return; const map={player:btnP, tie:btnT, banker:btnB}; const btn=map[side]; if(!btn||btn.disabled) return; [btnP,btnT,btnB].forEach(b=>b.classList.remove('sel')); btn.classList.add('sel'); selection=side; dealBtn.disabled=false; banner.textContent=`Selected: ${side.toUpperCase()} • Tap DEAL`; status.textContent=`Selected: ${side}`; }
+function selectSide(side){ if(inRound) return; const map={player:btnP, tie:btnT, banker:btnB}; const btn=map[side]; if(!btn||btn.disabled) return; [btnP,btnT,btnB].forEach(b=>b.classList.remove('sel')); btn.classList.add('sel'); selection=side; dealBtn.disabled=false; banner.textContent=`Selecionado: ${side==='player'?'JOGADOR':side==='banker'?'BANQUEIRO':'EMPATE'} • Toque em DISTRIBUIR`; status.textContent=`Selecionado: ${side}`; }
 [btnP,btnT,btnB].forEach(b=>{ b.addEventListener('click', e=>{ e.preventDefault(); if(!b.disabled) selectSide(b.dataset.side); }, {passive:false}); });
 
 dealBtn.addEventListener('click', startRound, {passive:true});
+
 async function startRound(){
   if(inRound) return;
-  if(!selection) return alert('Select Player / Tie / Banker first.');
+  if(!selection) return alert('Selecione Jogador / Empate / Banqueiro primeiro.');
   if(roundsPlayed>=3){ return showGate(); }
   inRound=true; dealBtn.disabled=true;
 
-  // Prepare hands
+  // Preparar mãos
   pHand.innerHTML=''; bHand.innerHTML='';
   let P=[makeCardEl(newCard(),false), makeCardEl(newCard(),false)];
   let B=[makeCardEl(newCard(),false), makeCardEl(newCard(),false)];
   P.forEach(c=>pHand.appendChild(c.el)); B.forEach(c=>bHand.appendChild(c.el));
 
-  await delay(250); heartbeat(pHand); flip(P[0]); updateTotals(P,B);
-  await delay(550); heartbeat(bHand); flip(B[0]); updateTotals(P,B);
-  await delay(550); heartbeat(pHand); flip(P[1]); updateTotals(P,B);
-  await delay(550); heartbeat(bHand); flip(B[1]); updateTotals(P,B);
+  await delay(250); flip(P[0]); updateTotals(P,B);
+  await delay(550); flip(B[0]); updateTotals(P,B);
+  await delay(550); flip(P[1]); updateTotals(P,B);
+  await delay(550); flip(B[1]); updateTotals(P,B);
 
   if(total(P)>=8 || total(B)>=8){ await finishRound(P,B); return; }
 
   let playerThird=null;
-  if(total(P)<=5){ playerThird=makeCardEl(newCard(),false); pHand.appendChild(playerThird.el); await delay(420); heartbeat(pHand); flip(playerThird); P.push(playerThird); updateTotals(P,B); }
+  if(total(P)<=5){ playerThird=makeCardEl(newCard(),false); pHand.appendChild(playerThird.el); await delay(420); flip(playerThird); P.push(playerThird); updateTotals(P,B); }
 
   const bT0=total(B); let needBanker=false;
   if(!playerThird){ needBanker=bT0<=5; }
@@ -215,35 +216,53 @@ async function startRound(){
     const v=bacVal(playerThird.r);
     needBanker=(bT0<=2)||(bT0===3 && v!==8)||(bT0===4 && v>=2 && v<=7)||(bT0===5 && v>=4 && v<=7)||(bT0===6 && (v===6||v===7));
   }
-  if(needBanker){ const b3=makeCardEl(newCard(),false); bHand.appendChild(b3.el); await delay(420); heartbeat(bHand); flip(b3); B.push(b3); updateTotals(P,B); }
+  if(needBanker){ const b3=makeCardEl(newCard(),false); bHand.appendChild(b3.el); await delay(420); flip(b3); B.push(b3); updateTotals(P,B); }
 
   await finishRound(P,B);
 }
-function updateTotals(P=[],B=[]){ const p=P.some(c=>c.shown)?total(P):'—', b=B.some(c=>c.shown)?total(B):'—'; g('pTot').textContent='Player: '+p; g('bTot').textContent='Banker: '+b; }
+
+function updateTotals(P=[],B=[]){
+  const p=P.some(c=>c.shown)?total(P):'—', b=B.some(c=>c.shown)?total(B):'—';
+  g('pTot').textContent='Jogador: '+p; g('bTot').textContent='Banqueiro: '+b;
+}
+
 async function finishRound(P,B){
   const pT=total(P), bT=total(B);
   let who = (pT>bT)?'player' : (bT>pT)?'banker':'tie';
-  const text = (who==='player') ? 'Player Win' : (who==='banker') ? 'Dealer Win' : 'Tie';
+  const text = (who==='player') ? 'Vitória do Jogador' : (who==='banker') ? 'Vitória do Banqueiro' : 'Empate';
   showWinner(who, text);
   if(who!=='tie' && selection===who) winsCount++;
   roundsPlayed++;
   const left=Math.max(0,3-roundsPlayed);
-  g('progressTop').textContent=`Bets left: ${left} • Wins: ${winsCount}`;
+  g('progressTop').textContent=`Apostas restantes: ${left} • Vitórias: ${winsCount}`;
 
   if(roundsPlayed>=3){
+    try{ localStorage.setItem(LS_KEY,'1'); }catch(e){}
     await delay(800);
     showGate();
   } else {
-    setTimeout(()=>{ g('pHand').innerHTML=''; g('bHand').innerHTML=''; g('winnerOverlay').classList.remove('show'); inRound=false; lock(false); g('dealBtn').disabled=true; g('outerBanner').textContent = `Place your bet: Player / Tie / Banker (${left} left)`; status.textContent = 'Place your bet'; }, 2200);
+    setTimeout(()=>{ g('pHand').innerHTML=''; g('bHand').innerHTML=''; g('winnerOverlay').classList.remove('show'); inRound=false; lock(false); g('dealBtn').disabled=true; g('outerBanner').textContent = `Faça sua aposta: Jogador / Empate / Banqueiro (${left} restantes)`; status.textContent = 'Faça sua aposta'; }, 2200);
   }
 }
+
 function showWinner(winner,text){
   const badge=g('winBadge'); badge.textContent=text; badge.className='winBadge '+(winner==='player'?'player':winner==='banker'?'banker':'tie');
   const ov=g('winnerOverlay'); ov.classList.remove('show'); void ov.offsetWidth; ov.classList.add('show');
   if(winner==='player'){ confetti(); }
 }
+
 function showGate(){ vipGate.classList.add('show'); lock(true); }
-function init(){ g('outerBanner').textContent='Tap a circle: Player / Tie / Banker'; lock(false); }
+function init(){
+  /* Não bloqueia reentrada; somente marcação no localStorage */
+  const played = (()=>{
+    try{ return localStorage.getItem(LS_KEY)==='1'; }catch(e){ return false; }
+  })();
+  if(played){
+    // Opcional: poderia exibir um aviso sutil; mantemos silencioso para não "bloquear".
+  }
+  g('outerBanner').textContent='Toque em um círculo: Jogador / Empate / Banqueiro';
+  lock(false);
+}
 init();
 </script>
 </body>
