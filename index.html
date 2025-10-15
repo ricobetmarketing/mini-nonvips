@@ -1,11 +1,11 @@
-<!doctype html>
-<html lang="en">
+<!doctype html> 
+<html lang="pt-BR">
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
-<title>Choose Your Rewards — Demo</title>
+<title>Escolha suas Recompensas</title>
 
-<!-- Prefetch for snappy first click -->
+<!-- Prefetch para clique mais rápido -->
 <link rel="prefetch" href="slot2.html">
 <link rel="prefetch" href="live.html">
 <link rel="preload" as="image" href="https://ricomx.ft-crm.com/media-api/serve/5b55a687-d742-4c8d-bf41-1ba837f4e84f_1.png">
@@ -56,16 +56,8 @@
   .icon{ position:relative; width:100%; height:100%; object-fit:contain; display:block; filter: drop-shadow(0 14px 22px rgba(0,0,0,.45)) drop-shadow(0 0 18px rgba(120,243,255,.18)); transform-origin: 50% 85%; animation: sway 3.8s ease-in-out infinite }
   @keyframes sway{ 0%{transform:rotate(-6deg)} 50%{transform:rotate(6deg)} 100%{transform:rotate(-6deg)} }
   .ribbon{ position:absolute; top:8px; left:10px; z-index:3; font-weight:900; font-size:11px; letter-spacing:.6px; padding:6px 10px; border-radius:999px; background:rgba(6,9,18,.78); color:#ffd86a; border:1px solid rgba(255,255,255,.18); box-shadow:0 4px 12px rgba(0,0,0,.35); pointer-events:none }
-  .ribbon.live{ color:#ffb7c2 } .ribbon.hot{ color:#ffe39a }
   .cta{ position:absolute; right:var(--btnOffset); bottom:var(--btnOffset); border:0; border-radius:999px; padding:8px 16px; background:linear-gradient(to right,var(--g1),var(--g2)); color:#061018; font-weight:900; letter-spacing:.4px; font-size:13px; box-shadow:0 6px 18px rgba(0,0,0,.35); display:inline-flex; align-items:center; justify-content:center }
   .hint{ position:absolute; left:50%; bottom:calc(100% + 8px); transform:translateX(-50%); padding:8px 10px; font-size:12px; font-weight:800; color:#0c1220; background:#eaf2ff; border-radius:10px; white-space:nowrap; box-shadow:0 10px 30px rgba(0,0,0,.45) }
-  .demoPill{
-    position:fixed; top:10px; left:10px; z-index:50;
-    background:rgba(6,9,18,.65); color:#ffd86a; font-weight:900;
-    border:1px solid rgba(255,255,255,.18); border-radius:999px;
-    padding:6px 10px; box-shadow:0 6px 18px rgba(0,0,0,.35);
-    letter-spacing:.3px; font-size:12px;
-  }
   /* SPA view (iframe) */
   .viewWrap{ position:fixed; inset:0; background:#000; display:none; z-index:50 }
   .viewWrap.show{ display:block }
@@ -82,47 +74,43 @@
   <div class="wrap">
     <header>
       <h1 class="title">
-        <span class="small">Choose Your</span>
-        <span class="big">REWARDS</span>
+        <span class="small">Escolha suas</span>
+        <span class="big">RECOMPENSAS</span>
       </h1>
-      <div class="sub">Demo preview — vouchers unlock at VIP 01+</div>
+      <div class="sub">Jogue normalmente — vouchers exigem VIP 01+</div>
     </header>
 
     <div class="stage">
-      <a class="island" href="#" data-url="slot2.html" aria-label="Preview Slots">
-        <span class="ribbon hot">HOT</span>
-        <span class="hint">Preview mode</span>
+      <a class="island" href="#" data-url="slot2.html" aria-label="Abrir Slots">
+        <span class="ribbon">CASSINO</span>
+        <span class="hint">Clique para jogar</span>
         <img class="icon" src="https://ricomx.ft-crm.com/media-api/serve/5b55a687-d742-4c8d-bf41-1ba837f4e84f_1.png" alt="">
-        <span class="cta">PREVIEW</span>
+        <span class="cta">JOGAR</span>
       </a>
 
-      <a class="island" href="#" data-url="live.html" aria-label="Preview Live">
-        <span class="ribbon live">LIVE</span>
-        <span class="hint">Preview mode</span>
+      <a class="island" href="#" data-url="live.html" aria-label="Abrir Baccarat ao Vivo">
+        <span class="ribbon">CASINO AO VIVO</span>
+        <span class="hint">Clique para jogar</span>
         <img class="icon" src="https://ricomx.ft-crm.com/media-api/serve/df6b594c-e8bd-402d-b186-efca9501a635_2.png" alt="">
-        <span class="cta">PREVIEW</span>
+        <span class="cta">JOGAR</span>
       </a>
     </div>
   </div>
 
-  <div id="demoPill" class="demoPill">Demo preview — no voucher codes</div>
-
-  <!-- BGM (quiet) -->
+  <!-- BGM (baixo) -->
   <audio id="bgm" src="theme.mp3" preload="auto" loop playsinline></audio>
 
   <!-- SPA shell -->
   <div id="viewWrap" class="viewWrap" aria-live="polite">
-    <a href="#" id="closeView" class="backBtn" aria-label="Back to menu">
+    <a href="#" id="closeView" class="backBtn" aria-label="Voltar ao menu">
       <svg viewBox="0 0 24 24" fill="none" width="16" height="16" aria-hidden="true"><path d="M14 6l-6 6 6 6" stroke="#0c1220" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      Back
+      Voltar
     </a>
     <iframe id="view" title="Game view" allow="autoplay; clipboard-write; fullscreen; encrypted-media"></iframe>
   </div>
 
 <script>
-/* Demo repo: always non-VIP */
-const IS_DEMO = true;
-
+/* Som de fundo desbloqueado por gesto */
 (function(){
   const audio = document.getElementById('bgm');
   const baseVol = 0.16;
@@ -135,13 +123,14 @@ const IS_DEMO = true;
   }
   window.addEventListener('load', bootBgm, { once:true });
 
+  /* Navegação em SPA */
   const viewWrap = document.getElementById('viewWrap');
   const view     = document.getElementById('view');
   const closeBtn = document.getElementById('closeView');
 
   function openView(url){
     if(!url) return;
-    view.src = url + (url.includes('?') ? '&' : '?') + 'demo=1';
+    view.src = url;
     viewWrap.classList.add('show');
     document.documentElement.style.overflow = 'hidden';
   }
